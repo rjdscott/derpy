@@ -2,7 +2,6 @@
 derpy
 =====
 
-
 .. image:: https://img.shields.io/pypi/v/derpy.svg
         :target: https://pypi.python.org/pypi/derpy
 
@@ -18,20 +17,60 @@ derpy
 
 Financial derivatives and portfolio analysis tools for python
 
-
 * Free software: MIT license
 * Documentation: https://derpy.readthedocs.io.
 
 
-Features
---------
+### How to get up and running
+to include the module in your project, you can simply use `pip install derpy` then in your python project:
 
-* TODO
+```python
+import derpy as dp
 
-Credits
--------
+print(dp.version()) # returns derpy-v0.0.1
+```
 
-This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
+### Example uses
 
-.. _Cookiecutter: https://github.com/audreyr/cookiecutter
-.. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
+**Bonds**
+
+```python
+import derpy as dp
+
+bond = dp.Bond(yield=2.3, maturity=3.4, coupon=2.3)
+print(bond.price) # returns 100
+```
+
+**Options**
+
+```python
+import derpy as dp
+
+opt = dp.Option(strike=20, 
+                underlying=13, 
+                type='american', 
+                volatility=30, 
+                maturity=340)
+
+print(opt.price(method='monte-carlo')) # returns 100
+print(opt.price(method='black-scholes')) # returns 100
+print(opt.price(method='binomial')) # returns 100
+
+```
+
+**Portfolios**
+
+```python
+import derpy as dp
+
+assets = ['a','b','c']
+prices = [1,2,3]
+quantities = [100,100,100]
+
+portfolio = dp.Portfolio(assets=assets, 
+                         prices=prices, 
+                         quantities=quantities)
+
+print(portfolio.value) # returns 500
+print(portfolio.weights) # returns {'a':20, 'b':40, 'c': 60}
+```
