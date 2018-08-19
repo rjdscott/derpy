@@ -38,6 +38,8 @@ Example uses
 Bonds:
 ==========
 
+.. code-block:: python
+
         import derpy as dp
 
         bond = dp.Bond(yield=2.3, maturity=3.4, coupon=2.3)
@@ -46,7 +48,9 @@ Bonds:
 
 Options
 ============
-::
+
+.. code-block:: python
+
         import derpy as dp
 
         opt = dp.Option(strike=20, 
@@ -62,7 +66,9 @@ Options
 
 Portfolio analysis
 ============
-::
+
+.. code-block:: python
+
         import derpy as dp
 
         assets = ['a','b','c']
