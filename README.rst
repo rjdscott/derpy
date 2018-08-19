@@ -1,3 +1,5 @@
+.. code-block:: python
+
 =====
 derpy
 =====
@@ -25,7 +27,6 @@ How to get up and running
 ******************
 to include the module in your project, you can simply use `pip install derpy` then in your python project::
 
-.. code-block:: python
         import derpy as dp
 
         print(dp.version()) # returns derpy-v0.0.1
@@ -62,7 +63,6 @@ Options
 Portfolio analysis
 ============
 ::
-.. code-block:: python
         import derpy as dp
 
         assets = ['a','b','c']
