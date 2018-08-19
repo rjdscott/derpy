@@ -20,5 +20,3 @@ __version__ = '0.1.0'
 # IMPORTS
 
 # Local application/library specific imports
-from derpy.bonds import *
-from derpy.options import *

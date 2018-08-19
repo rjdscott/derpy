@@ -16,10 +16,8 @@
 # IMPORTS
 
 # Standard library imports
-from math import e
-from math import log, sqrt
 
 # Related third party imports
-from derpy.bonds.bond import *
+from derpy.bonds import *
 
 # Local application/library specific imports
