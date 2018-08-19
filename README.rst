@@ -25,11 +25,11 @@ How to get up and running
 ******************
 to include the module in your project, you can simply use `pip install derpy` then in your python project:
 
-```python
-import derpy as dp
+.. code-block:: python
+        import derpy as dp
 
-print(dp.version()) # returns derpy-v0.0.1
-```
+        print(dp.version()) # returns derpy-v0.0.1
+
 
 Example uses
 ************
@@ -37,12 +37,12 @@ Example uses
 Bonds
 ==========
 
-```python
-import derpy as dp
+.. code-block:: python
+        import derpy as dp
 
-bond = dp.Bond(yield=2.3, maturity=3.4, coupon=2.3)
-print(bond.price) # returns 100
-```
+        bond = dp.Bond(yield=2.3, maturity=3.4, coupon=2.3)
+        print(bond.price) # returns 100
+
 
 Options
 ============
