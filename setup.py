@@ -43,7 +43,7 @@ setup(
     license="MIT license",
     long_description=readme + '\n\n' + history,
     include_package_data=True,
-    keywords='derpy',
+    keywords='derpy asset stock exchange securities market finance investment money currency cost framework',
     name='derpy',
     packages=find_packages(include=['derpy']),
     setup_requires=setup_requirements,

@@ -28,7 +28,12 @@ def option_pricing(func, args):
     return output
 
 
-def euro_call(stock_price, strike, volatility, time_to_maturity, interest_rate, div_yield=0):
+def euro_call(stock_price, 
+              strike, 
+              volatility, 
+              time_to_maturity, 
+              interest_rate, 
+              div_yield=0):
     """
     :param stock_price: spot price of the underlying asset
     :param strike: strike price
