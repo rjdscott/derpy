@@ -1,5 +1,3 @@
-.. code-block:: python
-
 =====
 derpy
 =====
@@ -25,7 +23,9 @@ Financial derivatives and portfolio analysis tools for python
 
 How to get up and running
 ******************
-to include the module in your project, you can simply use `pip install derpy` then in your python project::
+to include the module in your project, you can simply use `pip install derpy` then in your python project
+
+.. code-block:: python
 
         import derpy as dp
 
@@ -35,9 +35,9 @@ to include the module in your project, you can simply use `pip install derpy` th
 Example uses
 ************
 
-Bonds
+Bonds:
 ==========
-::
+
         import derpy as dp
 
         bond = dp.Bond(yield=2.3, maturity=3.4, coupon=2.3)
