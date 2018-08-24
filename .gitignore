@@ -11,6 +11,7 @@ __pycache__/
 .vscode/
 env/
 .env/
+.idea/
 build/
 develop-eggs/
 dist/
