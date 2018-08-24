@@ -62,6 +62,10 @@ Options
         put_price = bsm.euro_option('put', 20, 21, 0.2, 0.1, 0.0002) # div_yield is optional
         put_gamma = bsm.gamma('put', 20, 21, 0.2, 0.1, 0.0002, 0.0001)
 
+        print(call_price)  # return 0.16384395..
+        print(call_gamma)  # return 0.23993880..
+        print(put_price)  # return 1.16342..
+        print(put_gamma)  # return 0.2399107..
 
 Portfolio analysis
 ============
