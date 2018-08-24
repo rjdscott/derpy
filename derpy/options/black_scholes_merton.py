@@ -18,13 +18,13 @@ def option_pricing(func, args):
     :return: return values of the underlying functions
 
     @usage
-    import BlackScholesMerton as bsm
+    import black_scholes_merton as bsm
 
     # define input argument once
-    args = [20, 21, 0.12, 2, 0.05] # div_yield is optional
+    args = ['c', 20, 21, 0.12, 2, 0.05] # div_yield is optional
 
     # call option_pricing wrapper function
-    bsm.option_pricing(bsm.euro_call, args)
+    bsm.option_pricing(bsm.euro_option, args)
     """
     output = func(*args)
     return output
