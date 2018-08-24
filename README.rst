@@ -51,17 +51,16 @@ Options
 
 .. code-block:: python
 
-        import derpy as dp
+        from derpy.options import black_scholes_merton as bsm
 
-        opt = dp.Option(strike=20, 
-                        underlying=13, 
-                        type='american', 
-                        volatility=30, 
-                        maturity=340)
+        # usage method 1: use function wrapper
+        input = ['call', 20, 21, 0.20, 0.1, 0.0002, 0]
+        call_price = bsm.option_pricing(bsm.euro_option, input)
+        call_gamma = bsm.option_pricing(bsm.gamma, input)
 
-        print(opt.price(method='monte-carlo')) # returns 100
-        print(opt.price(method='black-scholes')) # returns 100
-        print(opt.price(method='binomial')) # returns 100
+        # usage method 2: call individual functions
+        put_price = bsm.euro_option('put', 20, 21, 0.2, 0.1, 0.0002) # div_yield is optional
+        put_gamma = bsm.gamma('put', 20, 21, 0.2, 0.1, 0.0002, 0.0001)
 
 
 Portfolio analysis
@@ -75,10 +74,9 @@ Portfolio analysis
         prices = [1,2,3]
         quantities = [100,100,100]
 
-        portfolio = dp.Portfolio(assets=assets, 
-                                prices=prices, 
+        portfolio = dp.Portfolio(assets=assets,
+                                prices=prices,
                                 quantities=quantities)
 
         print(portfolio.value) # returns 500
         print(portfolio.weights) # returns {'a':20, 'b':40, 'c': 60}
-        
