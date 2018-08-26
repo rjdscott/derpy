@@ -39,4 +39,4 @@ def ytm_calculation(maturity, coupon, face_value, freq):
 
     ytm = np.irr(cash_flow)
 
-    return round(ytm, 6)
+    return round(ytm)

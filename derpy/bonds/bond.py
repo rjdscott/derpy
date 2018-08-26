@@ -1,16 +1,84 @@
+import numpy as np
 
 
-class Bond:
+def bond_price(rate, maturity, coupon_rate, coupon_freq, face_value, due=0):
+    """
+    :param rate: annual interest rate used for discounting future value
+    :param maturity: number of years to maturity
+    :param coupon: coupon rate of the bond
+    :param face_value: principal payment of the bond at maturity
+    :param freq: frequency of the compounding
+    :param due: annuity due (type = 1), ordinary annuity (type = 0, default)
+    :return: the npv of all bond future cash flows
+    """
+
+    npv = np.pv(rate/coupon_freq, maturity*coupon_freq, -1*coupon_freq*face_value/coupon_freq, -1*face_value, due)
+
+    return npv
+
+def bond_yield_to_maturity(maturity, coupon_rate, face_value, coupon_freq):
+    """
+    :param maturity: number of years to maturity
+    :param coupon: coupon rate of the bond
+    :param face_value: faceValue of the bond
+    :param freq: frequency of the compounding
+    :return: the irr (YTM) of the bond
+    """
+
+    cash_flow = [-1 * face_value]
+    cash_flow.extend([face_value * coupon_rate / coupon_freq] * (maturity * coupon_freq - 2))
+    cash_flow.append(face_value * (1 + coupon_rate / coupon_freq))
+
+    ytm = np.irr(cash_flow)
+
+    return round(ytm)
+
+
+class Bond(object):
     
-    def __init__(self, cpn=None, mty=None, px=None, yld=None,  **kwargs):
-        self.cpn = cpn
-        self.mty = mty
-        self.px = px
-        self.yld = yld
+    def __init__(self, face_value=None, cpn_rate=None, cpn_freq=None, maturity=None):
+        self.face_value = face_value
+        self.coupon_rate = cpn_rate
+        self.coupon_freq = cpn_freq
+        self.maturity = maturity
+        self.price = None
+        self.yield_to_maturity = None
+        self.convexity = None
+        self.modified_duration = None
 
     def __repr__(self):
-        return "Bond(cpn={}, mty={}, px={}, yld={})".format(self.cpn,
-                                                            self.mty,
-                                                            self.px,
-                                                            self.yld)
-    
+        return "Bond(face_value={}, coupon_rate={}, coupon_freq={}, maturity={})".format(self.face_value,
+                                                                                    self.coupon_rate,
+                                                                                    self.coupon_freq,
+                                                                                    self.maturity)
+
+    def get_yield_to_maturity(self): 
+        
+        if self.maturity is None:
+            raise ValueError("Bond maturity is None, please set variable before recalculating...")
+        
+        elif self.coupon_freq is None:
+            raise ValueError("Bond coupon_freq is None, please set variable before recalculating...")
+        
+        elif self.coupon_rate is None:
+            raise ValueError("Bond coupon_rate is None, please set variable before recalculating...")
+        
+        elif self.face_value is None:
+            raise ValueError("Bond face_value is None, please set variable before recalculating...")
+
+        try:
+            self.yield_to_maturity = bond_yield_to_maturity(face_value=self.face_value,
+                                                            maturity=self.maturity,
+                                                            coupon_rate=self.coupon_rate,
+                                                            coupon_freq=self.coupon_freq)
+        
+        except ValueError:
+            raise("Cannot price bond, please check inputs...")
+
+        return self.yield_to_maturity
+
+
+if __name__ == '__main__':
+    bond = Bond(face_value=1000, maturity=20, cpn_freq=2, cpn_rate=3 )
+    bond_px = bond_price(3, 20, 2.5, 100, 2)
+    print(bond_px)
