@@ -40,7 +40,8 @@ def ytm_calculation(price, maturity, coupon, face_value, freq):
 
            There are other faster, and generic ways to solve for the root of polynomial.
            i.e. the Newton-Raphson method. For an example of YTM calculation using this
-           method please see http://web.mit.edu/18.06/www/Spring17/Eigenvalue-Polynomials.pdf
+           method please see https://github.com/jamesmawm/Mastering-Python-for-Finance-source-codes
+           /blob/master/B03898_05_Codes/bond_ytm.py
     """
 
     cash_flow = [-1*price]
