@@ -22,15 +22,13 @@ Financial derivatives and portfolio analysis tools for python
 
 
 How to get up and running
-******************
+***************************
 to include the module in your project, you can simply use `pip install derpy` then in your python project
 
 .. code-block:: python
 
-        import derpy as dp
-
-        print(dp.version()) # returns derpy-v0.0.1
-
+        import derpy
+        print(derpy.__version__) # returns '0.0.1'
 
 Example uses
 ************
@@ -68,19 +66,23 @@ Options
         print(put_gamma)  # return 0.2399107..
 
 Portfolio analysis
-============
+=====================
 
 .. code-block:: python
 
-        import derpy as dp
+        from derpy import portfolio as pt
 
-        assets = ['a','b','c']
-        prices = [1,2,3]
-        quantities = [100,100,100]
+        securities = ['AAA', 'BBB']
+        positions = [[11, 10], [12, 10], [13, 10], [13, 11], [13, 12]]
+        prices = [[10, 10], [11, 10], [12, 10], [12, 10], [12, 10]]
+        dates = ['2018-07-01', '2018-08-01', '2018-09-01', '2018-10-01', '2018-11-01']
 
-        portfolio = dp.Portfolio(assets=assets,
-                                prices=prices,
-                                quantities=quantities)
+        df_positions = pd.DataFrame(data=positions, columns=securities, index=dates)
+        df_prices = pd.DataFrame(data=prices, columns=securities, index=dates)
 
-        print(portfolio.value) # returns 500
-        print(portfolio.weights) # returns {'a':20, 'b':40, 'c': 60}
+        p = pt.Portfolio(names=securities, positions=df_positions, prices=df_prices)
+
+        print(p.sec_values())
+        print(p.sec_weights())
+        print(p.portfolio_value())
+        print(p.portfolio_returns())

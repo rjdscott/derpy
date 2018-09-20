@@ -18,5 +18,7 @@ __version__ = '0.1.0'
 
 # -----------------------------------------------------------------------------
 # IMPORTS
-
+from derpy.option_binomial import *
+from derpy.option_bsm import *
+from derpy.option import *
 # Local application/library specific imports
