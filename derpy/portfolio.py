@@ -1,4 +1,10 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
+# future proof py2 vs py3
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
 
 import pandas as pd
 import numpy as np
@@ -30,7 +36,6 @@ class Portfolio(object):
 
 
 if __name__ == '__main__':
-
     securities = ['AAA', 'BBB']
     positions = [[11, 10], [12, 10], [13, 10], [13, 11], [13, 12]]
     prices = [[10, 10], [11, 10], [12, 10], [12, 10], [12, 10]]

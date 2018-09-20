@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 # --------------------------------------------------------
 # Bond price calculator with given inputs
 # August 2018
@@ -40,7 +43,8 @@ def ytm_calculation(price, maturity, coupon, face_value, freq):
 
            There are other faster, and generic ways to solve for the root of polynomial.
            i.e. the Newton-Raphson method. For an example of YTM calculation using this
-           method please see https://github.com/jamesmawm/Mastering-Python-for-Finance-source-codes/blob/master/B03898_05_Codes/bond_ytm.py
+           method please see https://github.com/jamesmawm/
+                    Mastering-Python-for-Finance-source-codes/blob/master/B03898_05_Codes/bond_ytm.py
     """
 
     cash_flow = [-1*price]

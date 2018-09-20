@@ -1,16 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# future proof py2 vs py3
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+
 from derpy import option_binomial as bn
 from derpy import option_bsm as bsm
-
-#import option_binomial as bn
-#import option_bsm as bsm
 
 
 class Option:
 
-    def __init__(self, strike: float, underlying: float, time_to_mat: float, volatility: float, interest_rate: float):
+    def __init__(self, strike, underlying, time_to_mat, volatility, interest_rate):
         self.strike = strike
         self.underlying = underlying
         self.time_to_mat = time_to_mat
@@ -82,7 +84,6 @@ class Option:
 
 
 if __name__ == '__main__':
-
     opt = Option(strike=10, underlying=16, time_to_mat=60, volatility=0.16, interest_rate=0.02)
     print(opt.option_price(opt_type='e', call_put='c', px_method='bsm'))
     print(opt.option_price(opt_type='e', call_put='c', px_method='binomial'))

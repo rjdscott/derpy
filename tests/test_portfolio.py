@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# future proof py2 vs py3
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+
 from derpy import portfolio as pt
 import pandas as pd
 import unittest
@@ -9,7 +14,6 @@ import unittest
 class TestQuickFolio(unittest.TestCase):
 
     def test_portfolio(self):
-
         securities = ['AAA', 'BBB']
         positions = [[11, 10]]
         prices = [[10, 10]]

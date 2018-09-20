@@ -1,13 +1,20 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 # --------------------------------------------------------
 # European option, Black - Scholes - Merton formula
 # August 2018
 # version 1.1
 # --------------------------------------------------------
 
+# future proof py2 vs py3
+from __future__ import absolute_import
 from __future__ import division
-import math
-import numpy as np
+from __future__ import print_function
+
 from scipy.stats import norm
+import numpy as np
+import math
 
 
 def option_pricing(func, args):
@@ -75,7 +82,6 @@ def delta(call_put,
           time_to_maturity,
           interest_rate,
           div_yield=0):
-
     d1 = (math.log(stock_price / strike)
           + (interest_rate - div_yield + (volatility ** 2) / 2)
           * time_to_maturity) / (volatility * (time_to_maturity ** 0.5))
@@ -99,7 +105,6 @@ def gamma(call_put,
           time_to_maturity,
           interest_rate,
           div_yield=0):
-
     d1 = (math.log(stock_price / strike)
           + (interest_rate - div_yield + (volatility ** 2) / 2)
           * time_to_maturity) / (volatility * (time_to_maturity ** 0.5))
@@ -123,7 +128,6 @@ def vega(call_put,
          time_to_maturity,
          interest_rate,
          div_yield=0):
-
     d1 = (math.log(stock_price / strike)
           + (interest_rate - div_yield + (volatility ** 2) / 2)
           * time_to_maturity) / (volatility * (time_to_maturity ** 0.5))
@@ -147,7 +151,6 @@ def theta(call_put,
           time_to_maturity,
           interest_rate,
           div_yield=0):
-
     d1 = (math.log(stock_price / strike)
           + (interest_rate - div_yield + (volatility ** 2) / 2)
           * time_to_maturity) / (volatility * (time_to_maturity ** 0.5))
@@ -177,7 +180,6 @@ def rho(call_put,
         time_to_maturity,
         interest_rate,
         div_yield=0):
-
     d1 = (math.log(stock_price / strike)
           + (interest_rate - div_yield + (volatility ** 2) / 2)
           * time_to_maturity) / (volatility * (time_to_maturity ** 0.5))
@@ -205,7 +207,6 @@ def implied_vol(call_put,
                 time_to_maturity,
                 interest_rate,
                 div_yield=0):
-
     max_iteration = 100
     precision = 0.00001
     sigma = 0.25  # initial guess
@@ -231,7 +232,6 @@ def implied_vol(call_put,
 
         if abs(diff) < precision:
             return sigma
-        sigma = sigma + diff/guess_vega
+        sigma = sigma + diff / guess_vega
 
     return "Max iteration reached: cannot converge"
-

@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# future proof py2 vs py3
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+
 import unittest
 from derpy import option
 

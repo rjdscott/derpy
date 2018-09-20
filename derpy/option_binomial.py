@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 # --------------------------------------------------------
 # Binomial option pricing, American & European options
 # August 2018
@@ -8,7 +11,11 @@
 #       releases. (i.e. Jarrow-Rudd, CRR with drift..)
 # --------------------------------------------------------
 
+# future proof py2 vs py3
+from __future__ import absolute_import
+from __future__ import print_function
 from __future__ import division
+
 import numpy as np
 
 
@@ -34,11 +41,11 @@ def binomial_option(flag,
     """
 
     # set up binomial inputs
-    period = time_to_maturity/step
-    up_prob = np.exp(volatility*(period ** 0.5))
-    down_prob = np.exp(-1*volatility*(period ** 0.5))  # 1/up_prob
-    drift = np.exp(interest_rate*period)
-    rn_prob = (drift - down_prob)/(up_prob - down_prob)
+    period = time_to_maturity / step
+    up_prob = np.exp(volatility * (period ** 0.5))
+    down_prob = np.exp(-1 * volatility * (period ** 0.5))  # 1/up_prob
+    drift = np.exp(interest_rate * period)
+    rn_prob = (drift - down_prob) / (up_prob - down_prob)
 
     # calculate underlying tree price
     price_asset = np.zeros((step + 1, step + 1))
@@ -58,7 +65,7 @@ def binomial_option(flag,
         print("please specify option types")
 
     # set option flag
-    if flag in ['a', 'A', 'am', 'Am', 'AM', 'american',  'American', 'AMERICAN']:
+    if flag in ['a', 'A', 'am', 'Am', 'AM', 'american', 'American', 'AMERICAN']:
         flag = 1
     elif flag in ['e', 'E', 'eu', 'Eu', 'EU', 'european', 'European', 'EUROPEAN']:
         flag = 0
@@ -71,8 +78,8 @@ def binomial_option(flag,
         price_option[i, step] = max(call_put * (price_asset[i, step] - strike), 0)
     for j in range(step):
         for i in range(step - j):
-            price_option[i, step - 1 - j] = (rn_prob*price_option[i, step - j]
-                                             + (1 - rn_prob)*price_option[i + 1, step - j])/drift
+            price_option[i, step - 1 - j] = (rn_prob * price_option[i, step - j]
+                                             + (1 - rn_prob) * price_option[i + 1, step - j]) / drift
             if flag == 1:
                 price_option[i, step - 1 - j] = max(call_put * (price_asset[i, step - 1 - j] - strike),
                                                     price_option[i, step - 1 - j])
