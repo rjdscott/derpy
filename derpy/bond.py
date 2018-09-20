@@ -15,12 +15,23 @@ def bond_price(rate, maturity, coupon_rate, coupon_freq, face_value, due=0):
     :return: the npv of all bond future cash flows
     """
 
-    npv = np.pv(rate/coupon_freq, maturity*coupon_freq, -1*coupon_freq*face_value/coupon_freq, -1*face_value, due)
+    npv = np.pv(rate / coupon_freq, maturity * coupon_freq, -1 * coupon_freq * face_value / coupon_freq,
+                -1 * face_value, due)
 
     return npv
 
 
-def bond_yield_to_maturity(price, maturity, coupon_rate, face_value, coupon_freq):
+def bond_px(par, T, ytm, coup, freq=2):
+    freq = float(freq)
+    periods = T*freq
+    coupon = coup/100.*par/freq
+    dt = [(i+1)/freq for i in range(int(periods))]
+    price = sum([coupon/(1+ytm/freq)**(freq*t) for t in dt]) + \
+            par/(1+ytm/freq)**(freq*T)
+    return price
+
+
+def bond_ytm(price, maturity, coupon_rate, coupon_freq, face_value=100.00):
     """
 
     :param price: current price of the bond
@@ -51,23 +62,23 @@ def bond_yield_to_maturity(price, maturity, coupon_rate, face_value, coupon_freq
 
 class Bond(object):
 
-    def __init__(self, face_value=None, cpn_rate=None, cpn_freq=None, maturity=None):
-        self.face_value = face_value
+    def __init__(self, price=None, cpn_rate=None, cpn_freq=None, maturity=None, face_value=None):
         self.coupon_rate = cpn_rate
         self.coupon_freq = cpn_freq
         self.maturity = maturity
-        self.price = None
-        self.yield_to_maturity = None
+        self.face_value = face_value
+        self.price = price
+        self.yield_to_mat = None
         self.convexity = None
-        self.modified_duration = None
+        self.mod_dur = None
 
     def __repr__(self):
         return "Bond(face_value={}, coupon_rate={}, coupon_freq={}, maturity={})".format(self.face_value,
-                                                                                    self.coupon_rate,
-                                                                                    self.coupon_freq,
-                                                                                    self.maturity)
+                                                                                         self.coupon_rate,
+                                                                                         self.coupon_freq,
+                                                                                         self.maturity)
 
-    def get_yield_to_maturity(self):
+    def calc_ytm(self):
 
         if self.maturity is None:
             raise ValueError("Bond maturity is None, please set variable before recalculating...")
@@ -78,22 +89,43 @@ class Bond(object):
         elif self.coupon_rate is None:
             raise ValueError("Bond coupon_rate is None, please set variable before recalculating...")
 
+        elif self.price is None:
+            raise ValueError("Bond price is None, please set variable before recalculating...")
+
         elif self.face_value is None:
             raise ValueError("Bond face_value is None, please set variable before recalculating...")
 
-        try:
-            self.yield_to_maturity = bond_yield_to_maturity(face_value=self.face_value,
-                                                            maturity=self.maturity,
-                                                            coupon_rate=self.coupon_rate,
-                                                            coupon_freq=self.coupon_freq)
+        else:
 
-        except ValueError:
-            raise("Cannot price bond, please check inputs...")
+            self.yield_to_mat = bond_ytm(face_value=self.face_value,
+                                         maturity=self.maturity,
+                                         coupon_rate=self.coupon_rate,
+                                         coupon_freq=self.coupon_freq,
+                                         price=self.price)
 
-        return self.yield_to_maturity
+            return self.yield_to_mat
+
+    def calc_px(self):
+        pass
 
 
 if __name__ == '__main__':
-    bond = Bond(face_value=1000, maturity=20, cpn_freq=2, cpn_rate=3 )
-    bond_px = bond_price(3, 20, 2.5, 100, 2)
-    print(bond_px)
+
+    px = 139.87
+    mat = 12
+    cpn_frq = 2
+    cpn_rate = 6.25
+    dc_rate = 3.0
+    face_val = 99.94
+
+    bond = Bond(price=px, maturity=mat, cpn_freq=cpn_frq, cpn_rate=cpn_rate, face_value=face_val)
+
+    print('--- bond ytm ---')
+    print(bond.calc_ytm())
+    print(bond_ytm(price=px, maturity=mat, coupon_rate=cpn_rate, coupon_freq=cpn_frq, face_value=face_val))
+
+
+    print('--- bond prices ---')
+    print(bond.price)
+    print(bond_price(rate=dc_rate, maturity=mat, coupon_rate=cpn_rate, coupon_freq=cpn_frq, face_value=face_val))
+
