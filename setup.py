@@ -35,7 +35,7 @@ setup(
     description="Financial derivatives and portfolio analysis tools for python",
     entry_points={
         'console_scripts': [
-            'derpy=derpy.cli:main',
+
         ],
     },
     install_requires=requirements,
