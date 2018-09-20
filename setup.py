@@ -13,9 +13,9 @@ with open('HISTORY.rst') as history_file:
 
 requirements = ['Click>=6.0', 'pandas', 'numpy', 'scipy']
 
-setup_requirements = [ ]
+setup_requirements = []
 
-test_requirements = [ ]
+test_requirements = []
 
 setup(
     author="Rob Scott",
@@ -50,5 +50,5 @@ setup(
     tests_require=test_requirements,
     url='https://github.com/rjdscott/derpy',
     version='0.1.0',
-    zip_safe=False,
+    zip_safe=True,
 )

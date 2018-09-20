@@ -11,6 +11,8 @@ __pycache__/
 .vscode/
 env/
 .env/
+.env2/
+.env27/
 .idea/
 build/
 develop-eggs/
