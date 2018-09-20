@@ -41,7 +41,6 @@ if __name__ == '__main__':
 
     qf = Portfolio(names=securities, positions=df_positions, prices=df_prices)
 
-    print('Test outputs....')
     print(qf.sec_values())
     print('-----')
     print(qf.sec_weights())
