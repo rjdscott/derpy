@@ -5,6 +5,30 @@ import numpy as np
 import scipy.optimize as optimize
 
 
+def bond_convexity(price, face_value, time_to_mat, cpn_rate, cpn_freq, dy=0.01):
+    '''
+    Calculates bond convexity
+    :param price: bond price
+    :param face_value: bond face value
+    :param time_to_mat: time to maturity
+    :param cpn_rate: coupon rate
+    :param cpn_freq: coupon freq
+    :param dy:
+    :return: convexity
+    '''
+    ytm = bond_ytm(price, face_value, time_to_mat, cpn_rate, cpn_freq)
+
+    ytm_minus = ytm - dy
+    price_minus = bond_price(face_value, time_to_mat, ytm_minus, cpn_rate, cpn_freq)
+
+    ytm_plus = ytm + dy
+    price_plus = bond_price(face_value, time_to_mat, ytm_plus, cpn_rate, cpn_freq)
+
+    convexity = (price_minus + price_plus - 2 * price) / (price * dy ** 2)
+
+    return convexity
+
+
 def bond_duration(price, face_value, time_to_mat, cpn_rate, cpn_freq, dy=0.01):
     '''
     Calculates bond modified duration and mac duration
@@ -109,7 +133,7 @@ class Bond(object):
         self.price = price
         self.yield_to_mat = None
         self.convexity = None
-        self.mod_dur = None
+        self.duration = []
         self.cash_flows = []
 
     def __repr__(self):
@@ -138,18 +162,28 @@ class Bond(object):
         else:
 
             self.yield_to_mat = bond_ytm(face_value=self.face_value,
-                                         maturity=self.maturity,
-                                         coupon_rate=self.coupon_rate,
-                                         coupon_freq=self.coupon_freq,
+                                         time_to_mat=self.maturity,
+                                         cpn_rate=self.coupon_rate,
+                                         cpn_freq=self.coupon_freq,
                                          price=self.price)
 
             return self.yield_to_mat
 
     def calc_duration(self):
-        pass
+        self.duration = bond_duration(price=self.price,
+                                      face_value=self.face_value,
+                                      time_to_mat=self.maturity,
+                                      cpn_rate=self.coupon_rate,
+                                      cpn_freq=self.coupon_freq)
+        return self.duration
 
     def calc_px(self):
-        pass
+        self.price = bond_price(yld_to_mat=self.yield_to_mat,
+                                face_value=self.face_value,
+                                time_to_mat=self.maturity,
+                                cpn_rate=self.coupon_rate,
+                                cpn_freq=self.coupon_freq)
+        return self.price
 
 
 if __name__ == '__main__':
@@ -164,4 +198,5 @@ if __name__ == '__main__':
     print(' Yield: {}'.format(bond_ytm(px, face_val, mat, cpn_rate, cpn_frq)))
     print('ModDur: {}'.format(bond_duration(px, face_val, mat, cpn_rate, cpn_frq)[0]))
     print('MacDur: {}'.format(bond_duration(px, face_val, mat, cpn_rate, cpn_frq)[1]))
+    print('Convex: {}'.format(bond_convexity(px, face_val, mat, cpn_rate, cpn_frq)))
 
