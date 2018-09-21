@@ -19,6 +19,8 @@ Financial derivatives and portfolio analysis tools for python
 
 * Free software: MIT license
 * Documentation: https://derpy.readthedocs.io.
+* PyPi: https://pypi.org/project/derpy/
+* Gitub: https://github.com/rjdscott/derpy
 
 
 How to get up and running
