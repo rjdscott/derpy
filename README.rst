@@ -33,16 +33,25 @@ to include the module in your project, you can simply use `pip install derpy` th
 Example uses
 ************
 
-Bonds:
+Bonds
 ==========
 
 .. code-block:: python
 
-        import derpy as dp
+        from derpy import bond as bd
 
-        bond = dp.Bond(yield=2.3, maturity=3.4, coupon=2.3)
-        print(bond.price) # returns 100
+        px = 95.0428
+        face_val = 100.0
+        mat = 1.5
+        cpn_frq = 2
+        cpn_rate = 5.25
+        ytm = 5.5
 
+        print('    Price: {}'.format(bd.bond_price(face_val, mat, ytm, cpn_rate, cpn_frq)))
+        print('    Yield: {}'.format(bd.bond_ytm(px, face_val, mat, cpn_rate, cpn_frq)))
+        print('   ModDur: {}'.format(bd.bond_duration(px, face_val, mat, cpn_rate, cpn_frq)[0]))
+        print('   MacDur: {}'.format(bd.bond_duration(px, face_val, mat, cpn_rate, cpn_frq)[1]))
+        print('Convexity: {}'.format(bd.bond_convexity(px, face_val, mat, cpn_rate, cpn_frq)))
 
 Options
 ============
