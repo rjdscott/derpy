@@ -20,7 +20,7 @@ class TestBond(unittest.TestCase):
         face_val = 99.94
 
         bond = bd.Bond(price=px, maturity=mat, cpn_freq=cpn_frq, cpn_rate=cpn_rate, face_value=face_val)
-        expected_result = 2.2328769571733056
+        expected_result = 0.023985917390473392
         self.assertAlmostEqual(bond.calc_ytm(), expected_result)
 
 
