@@ -10,18 +10,19 @@ Bonds
 
         from derpy import bond as bd
 
-        px = 139.87
-        mat = 12
+        px = 95.0428
+        face_val = 100.0
+        mat = 1.5
         cpn_frq = 2
-        cpn_rate = 6.25
-        dc_rate = 3.0
-        face_val = 99.94
+        cpn_rate = 5.25
+        ytm = 5.5
 
-        bond = bd.Bond(price=px, maturity=mat, cpn_freq=cpn_frq, cpn_rate=cpn_rate, face_value=face_val)
+        print('    Price: {}'.format(bd.bond_price(face_val, mat, ytm, cpn_rate, cpn_frq)))
+        print('    Yield: {}'.format(bd.bond_ytm(px, face_val, mat, cpn_rate, cpn_frq)))
+        print('   ModDur: {}'.format(bd.bond_duration(px, face_val, mat, cpn_rate, cpn_frq)[0]))
+        print('   MacDur: {}'.format(bd.bond_duration(px, face_val, mat, cpn_rate, cpn_frq)[1]))
+        print('Convexity: {}'.format(bd.bond_convexity(px, face_val, mat, cpn_rate, cpn_frq)))
 
-        print('--- bond ytm ---')
-        print('Bond ytm = {}'.format(bond.ytm()))
-        # returns Bond ytm = 2.2328769571733056
 
 Options
 ============
